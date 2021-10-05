@@ -1,0 +1,45 @@
+{
+  "name": "@bara-foundation/solidity-account",
+  "description": "Managed account smart contracts",
+  "version": "0.1.0",
+  "main": "./build/typechain/index.js",
+  "types": "./build/typechain/index.d.ts",
+  "files": [
+    "**/*.sol",
+    "**/*.d.ts",
+    "/build/contracts/*.json",
+    "/build/typechain/**/*.js",
+    "/build/typechain/**/*.d.ts",
+    "!/mocks/**/*"
+  ],
+  "scripts": {
+    "prepare": "bash ../scripts/prepare-contracts-package.sh",
+    "prepare-docs": "cd ..; npm run prepare-docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts.git"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "security",
+    "zeppelin"
+  ],
+  "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/issues"
+  },
+  "homepage": "https://openzeppelin.com/contracts/",
+  "private": false,
+  "peerDependencies": {
+    "ethers": "^5.4.7",
+    "@ethersproject/bytes": "^5.4.0",
+    "@ethersproject/abi": "^5.4.1",
+    "@ethersproject/providers": "^5.4.5",
+    "@nomiclabs/hardhat-ethers": "^2.0.2"
+  }
+}
