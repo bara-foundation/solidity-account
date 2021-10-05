@@ -17,4 +17,5 @@ interface IERC721Account {
 * A contract which is able to receive any ERC20/ERC721 token
  */
 interface IAccount is IERC20Account, IERC721Account, IERC721Receiver {
+    function slug() external view returns (bytes32);
 }
