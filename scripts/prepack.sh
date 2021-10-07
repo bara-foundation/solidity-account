@@ -6,7 +6,7 @@ set -euo pipefail
 # cross platform `mkdir -p`
 node -e 'fs.mkdirSync("build/contracts", { recursive: true })'
 
-cp artifacts/contracts/**/*.json build/contracts
+find artifacts/contracts/ -type f -name '*.json' | xargs -I % sh -c 'cp % build/contracts'
 rm build/contracts/*.dbg.json
 
 node scripts/remove-ignored-artifacts.js
