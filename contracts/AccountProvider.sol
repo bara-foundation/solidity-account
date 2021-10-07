@@ -23,7 +23,7 @@ abstract contract AccountProvider is AccoutProviderStorage {
     }
 
     modifier accountExisted(bytes32 slug) {
-        require(_accountBySlug[slug] >= 0, "account not existed");
+        require(_accountBySlug[slug] > 0, "account not existed");
         _;
     }
 
@@ -75,14 +75,12 @@ abstract contract AccountProvider is AccoutProviderStorage {
     }
     
     function accountById(uint256 accountId_) public view returns (address) {
-        require(accountId_ < _accountIds.current(), "account not exist");
-        address account = _accounts[accountId_];
-        return account;
+        require(accountId_ <= _accountIds.current(), "account not exist");
+        return _accounts[accountId_];
     }
     
     function accountBySlug(bytes32 slug_) public view accountExisted(slug_) returns (address) {
-        uint256 accountId = _accountBySlug[slug_];
-        return accountById(accountId);
+        return _accounts[_accountBySlug[slug_]];
     }
     
     function totalUsers() public view returns (uint256) {

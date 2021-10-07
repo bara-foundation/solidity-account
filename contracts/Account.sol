@@ -10,7 +10,7 @@ import "./IAccount.sol";
 contract Account is IAccount, ERC721Holder {
     bytes32 private _slug;
     constructor(bytes32 slug_) {
-        _slug = slug_;
+        _setSlug(slug_);
     }
 
     function approveFungibleToken(address token_, address spender_, uint256 amount_) public override {
@@ -23,6 +23,11 @@ contract Account is IAccount, ERC721Holder {
 
     function approveAllNonFungibleToken(address token_, address operator_, bool approved_) public override {
         IERC721(token_).setApprovalForAll(operator_, approved_);
+    }
+
+    function _setSlug(bytes32 slug_) internal {
+        require(_slug == 0, "slug already set");
+        _slug = slug_;
     }
 
     function slug() external view override returns (bytes32) {
