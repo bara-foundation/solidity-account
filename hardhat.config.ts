@@ -20,7 +20,7 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
 export default {
   solidity: "0.8.4",
   typechain: {
-    outDir: "./typechain",
+    outDir: "./contracts/typechain",
     target: "ethers-v5",
   },
 };

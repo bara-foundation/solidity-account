@@ -13,21 +13,15 @@ contract AccountExample is Account {
 }
 
 contract AccountProviderExample is AccountProvider {
-    function _newAccountContract(uint256 id_, bytes32 slug_) internal override returns (address) {
-        return address(new AccountExample(id_, slug_));
+    function _newAccountContract(bytes32 slug_) internal override returns (address) {
+        return address(new AccountExample(0, slug_));
     }
 
-    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
-        assembly {
-        result := mload(add(source, 32))
-        }
-    }
-
-    function createAccount(bytes32 slug_) external {
+    function createAccount(bytes32 slug_) override external {
         _createAccount(slug_);
     }
 
-    function deleteAccount(bytes32 slug_) external {
+    function deleteAccount(bytes32 slug_) override external {
         _deleteAccount(slug_);
     }
 }

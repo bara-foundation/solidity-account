@@ -3,6 +3,7 @@ pragma solidity 0.8.4;
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./Account.sol";
+import "./IAccountProvider.sol";
 
 contract AccoutProviderStorage {
     event AccountCreated(uint256 accountId, bytes32 slug, address accountAddress);
@@ -13,7 +14,7 @@ contract AccoutProviderStorage {
     mapping(bytes32 => uint256) _accountBySlug;
 }
 
-abstract contract AccountProvider is AccoutProviderStorage {
+abstract contract AccountProvider is IAccountProvider, AccoutProviderStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _accountIds;
     
@@ -27,8 +28,16 @@ abstract contract AccountProvider is AccoutProviderStorage {
         _;
     }
 
-    function _newAccountContract(uint256 id_, bytes32 slug_) internal virtual returns (address) {
-        revert("_newAccountContract not yet overrided");
+    function createAccount(bytes32 slug_) external override virtual {
+        _createAccount(slug_);
+    }
+
+    function deleteAccount(bytes32 slug_) external override virtual {
+        _deleteAccount(slug_);
+    }
+
+    function _newAccountContract(bytes32 slug_) internal virtual returns (address) {
+        return address(new Account(slug_));
     }
 
     function _beforeCreateAccount(uint256 id_, bytes32 slug_) internal virtual {}
@@ -45,7 +54,7 @@ abstract contract AccountProvider is AccoutProviderStorage {
 
         _beforeCreateAccount(accountId, slug_);
 
-        _accounts[accountId] = _newAccountContract(accountId, slug_);
+        _accounts[accountId] = _newAccountContract(slug_);
         _accountBySlug[slug_] = accountId;
 
         _afterCreateAccount(accountId, slug_, _accounts[accountId]);
@@ -68,22 +77,22 @@ abstract contract AccountProvider is AccoutProviderStorage {
         emit AccountDeleted(accountId, slug_, accountAddress);
     }
 
-    function isAccount(address accountContract_) public view returns (bool) {
+    function isAccount(address accountContract_) override public view returns (bool) {
         bytes32 slug = IAccount(accountContract_).slug();
         uint256 accountId = _accountBySlug[slug];
         return _accounts[accountId] == accountContract_;
     }
     
-    function accountById(uint256 accountId_) public view returns (address) {
+    function accountById(uint256 accountId_) override public view returns (address) {
         require(accountId_ <= _accountIds.current(), "account not exist");
         return _accounts[accountId_];
     }
     
-    function accountBySlug(bytes32 slug_) public view accountExisted(slug_) returns (address) {
+    function accountBySlug(bytes32 slug_) override public view accountExisted(slug_) returns (address) {
         return _accounts[_accountBySlug[slug_]];
     }
     
-    function totalUsers() public view returns (uint256) {
+    function totalUsers() override public view returns (uint256) {
         return _accountIds.current();
     }
 }

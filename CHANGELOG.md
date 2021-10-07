@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fix `_setSlug`
+
 ## 0.1.1-2 (2021-10-05)
 
 - Add `_createAccount`, `_deleteAccount` and `isAccount` method for AccountProvider.
