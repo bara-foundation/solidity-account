@@ -1,6 +1,6 @@
 {
   "name": "@bara-foundation/solidity-account",
-  "version": "0.1.1-2",
+  "version": "0.1.1-3",
   "files": [
     "/contracts/**/*.sol",
     "/dist/**/*.js",
