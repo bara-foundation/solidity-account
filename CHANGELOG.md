@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.1-5 (2021-10-08)
 
 - Change `dist` for JS.
 - Make contract more modular.
