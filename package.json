@@ -3,6 +3,7 @@
   "version": "0.1.1-5",
   "files": [
     "/contracts/**/*.sol",
+    "/contracts/**/*.js",
     "/dist/**/*.js",
     "/dist/**/*.d.ts",
     "/build/contracts/*.json",

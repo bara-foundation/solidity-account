@@ -7,9 +7,9 @@
   "files": [
     "**/*.sol",
     "**/*.d.ts",
-    "/build/contracts/*.json",
-    "/build/typechain/**/*.js",
-    "/build/typechain/**/*.d.ts",
+    "/build/**/*.json",
+    "/build/dist/**/*.js",
+    "/build/dist/**/*.d.ts",
     "!/mocks/**/*"
   ],
   "scripts": {

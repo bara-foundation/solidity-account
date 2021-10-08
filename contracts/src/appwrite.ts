@@ -44,7 +44,7 @@ export async function createAccount(
   contractAddress: string,
   { email }: CreateAccountProps,
   provider?: any
-) {
+): Promise<ethers.ethers.ContractReceipt> {
   const selectProvider = provider || getProvider();
   const accountProvider = AccountProvider__factory.connect(
     contractAddress,
@@ -52,9 +52,39 @@ export async function createAccount(
   );
   const slug = ethers.utils.formatBytes32String(email);
   const tx = await accountProvider.createAccount(slug);
+  console.log({ tx: JSON.stringify(tx, null, 2) });
   const response = await tx.wait();
   const events = response.events;
-  console.log(JSON.stringify(events, null, 2));
+  console.log({ events: JSON.stringify(events, null, 2) });
+  return response;
+  // if (events[1].event.name == "AccountRegistered") {
+  //   const { accountId, slug, accountAddress } = events[1].event as any;
+  //   console.log({ accountId, slug, accountAddress });
+
+  //   const account = new Users(client).updatePrefs(payload.$id, {
+  //     smcAddress: accountAddress,
+  //   });
+  //   console.log(`Updated prefs: ${JSON.stringify(account)}`);
+  // }
+}
+
+export async function deleteAccount(
+  contractAddress: string,
+  { email }: CreateAccountProps,
+  provider?: any
+): Promise<ethers.ethers.ContractReceipt> {
+  const selectProvider = provider || getProvider();
+  const accountProvider = AccountProvider__factory.connect(
+    contractAddress,
+    selectProvider
+  );
+  const slug = ethers.utils.formatBytes32String(email);
+  const tx = await accountProvider.deleteAccount(slug);
+  console.log({ tx: JSON.stringify(tx, null, 2) });
+  const response = await tx.wait();
+  const events = response.events;
+  console.log({ events: JSON.stringify(events, null, 2) });
+  return response;
   // if (events[1].event.name == "AccountRegistered") {
   //   const { accountId, slug, accountAddress } = events[1].event as any;
   //   console.log({ accountId, slug, accountAddress });
