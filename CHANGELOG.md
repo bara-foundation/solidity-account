@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.1-6 (2021-10-08)
 
 - Add `deleteAccount` function.
 - Include js files in dist bundle.
