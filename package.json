@@ -17,7 +17,7 @@
     "compile:hardhat": "env COMPILE_MODE=production hardhat compile",
     "compile:tsc": "run-s pack tsc",
     "compile": "run-s clean compile:hardhat compile:tsc",
-    "sync": "run-s pack",
+    "prerelease": "run-s compile",
     "release": "scripts/release/release.sh",
     "version": "scripts/release/version.sh"
   },
