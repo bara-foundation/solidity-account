@@ -6,5 +6,5 @@ artifacts
 
 build/
 contracts/build/
-dist/
-typechain/
+contracts/README.md
+contracts/src/typechain

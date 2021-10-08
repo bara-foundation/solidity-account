@@ -17,6 +17,6 @@ rm -rf contracts/build
 
 # Move artifacts
 cp README.md contracts/
-mkdir contracts/build contracts/build/contracts contracts/build/typechain
+# mkdir contracts/build
 cp -r build/contracts/*.json contracts/build/contracts
-cp -r dist/typechain/* contracts/build/typechain
+# cp -r dist/typechain/* contracts/build/typechain

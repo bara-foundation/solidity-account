@@ -3,8 +3,13 @@ import * as ethers from "ethers";
 import { Client, Users } from "node-appwrite";
 
 import AccountProviderArtifact from "../build/contracts/AccountProvider.json";
-import { AccountProvider__factory } from "../typechain";
+import { AccountProvider__factory } from "./typechain";
 import KardiaClient from "kardia-js-sdk";
+
+const APPWRITE_ENDPOINT = process.env.APPWRITE_ENDPOINT as string;
+const APPWRITE_FUNCTION_PROJECT_ID = process.env
+  .APPWRITE_FUNCTION_PROJECT_ID as string;
+const APPWRITE_API_KEY = process.env.APPWRITE_API_KEY as string;
 
 export const getKardiaContract = (kardiaClient: KardiaClient) => {
   const contractInstance = kardiaClient.contract;
@@ -17,9 +22,9 @@ export const getKardiaContract = (kardiaClient: KardiaClient) => {
 export const getAppWriteClient = (): Client => {
   const client = new Client();
   client
-    .setEndpoint(process.env.APPWRITE_ENDPOINT)
-    .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-    .setKey(process.env.APPWRITE_API_KEY);
+    .setEndpoint(APPWRITE_ENDPOINT)
+    .setProject(APPWRITE_FUNCTION_PROJECT_ID)
+    .setKey(APPWRITE_API_KEY);
   return client;
 };
 
@@ -31,7 +36,7 @@ const getProvider = () => {
 };
 
 export const deploy = (): Promise<string> => {
-  return Promise.resolve(null);
+  return Promise.resolve("");
 };
 
 export type CreateAccountProps = { email: string };

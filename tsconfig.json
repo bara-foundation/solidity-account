@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "target": "es2018",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
-    "outDir": "dist",
+    "outDir": "./contracts/build/dist",
     "declaration": true
   },
-  "include": ["./typechain"],
+  "include": ["./contracts/src"],
   "files": ["./hardhat.config.ts"]
 }
