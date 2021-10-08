@@ -6,7 +6,7 @@
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
-    "outDir": "./contracts/build/dist",
+    "outDir": "dist",
     "declaration": true
   },
   "include": ["./contracts/src"],

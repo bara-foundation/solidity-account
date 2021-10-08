@@ -5,6 +5,7 @@ cache
 artifacts
 
 build/
+dist/
 contracts/build/
 contracts/README.md
 contracts/src/typechain

@@ -2,8 +2,8 @@
   "name": "@bara-foundation/solidity-account",
   "description": "Managed account smart contracts",
   "version": "0.1.1-3",
-  "main": "./build/typechain/index.js",
-  "types": "./build/typechain/index.d.ts",
+  "main": "./build/dist/src/index.js",
+  "types": "./build/dist/src/index.d.ts",
   "files": [
     "**/*.sol",
     "**/*.d.ts",
