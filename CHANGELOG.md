@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.1-7 (2021-10-08)
 
 - Remove `node-appwrite` deps
 
