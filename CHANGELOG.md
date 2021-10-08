@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Change `dist` for JS.
+- Make contract more modular.
+
 ## 0.1.1-3 (2021-10-07)
 
 - Fix `_setSlug`
