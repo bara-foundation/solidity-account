@@ -1,2 +1,2 @@
-export * from "./appwrite";
+export * from "./functions";
 export * from "./typechain";

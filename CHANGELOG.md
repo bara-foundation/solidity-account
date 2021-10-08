@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Remove `node-appwrite` deps
+
 ## 0.1.1-6 (2021-10-08)
 
 - Add `deleteAccount` function.

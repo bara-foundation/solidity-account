@@ -1,7 +1,5 @@
 import * as ethers from "ethers";
 
-import { Client, Users } from "node-appwrite";
-
 import AccountProviderArtifact from "../build/contracts/AccountProvider.json";
 import { AccountProvider__factory } from "./typechain";
 import KardiaClient from "kardia-js-sdk";
@@ -19,14 +17,14 @@ export const getKardiaContract = (kardiaClient: KardiaClient) => {
   return contractInstance;
 };
 
-export const getAppWriteClient = (): Client => {
-  const client = new Client();
-  client
-    .setEndpoint(APPWRITE_ENDPOINT)
-    .setProject(APPWRITE_FUNCTION_PROJECT_ID)
-    .setKey(APPWRITE_API_KEY);
-  return client;
-};
+// export const getAppWriteClient = (): Client => {
+//   const client = new Client();
+//   client
+//     .setEndpoint(APPWRITE_ENDPOINT)
+//     .setProject(APPWRITE_FUNCTION_PROJECT_ID)
+//     .setKey(APPWRITE_API_KEY);
+//   return client;
+// };
 
 const getProvider = () => {
   const provider = new ethers.providers.JsonRpcProvider(
