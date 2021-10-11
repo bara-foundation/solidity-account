@@ -12,7 +12,7 @@ contract AccountExample is Account {
     }
 }
 
-contract AccountProviderExample is AccountProviderReferrable {
+contract AccountProviderReferralExample is AccountProviderReferrable {
     constructor() ERC721("Example", "EXP") {
     }
 
@@ -20,11 +20,7 @@ contract AccountProviderExample is AccountProviderReferrable {
         return address(new AccountExample(0, slug_));
     }
 
-    function createAccount(bytes32 slug_) override external {
-        _createAccount(slug_);
-    }
-
-    function deleteAccount(bytes32 slug_) override external {
-        _deleteAccount(slug_);
+    function referById(uint256 referrerId_, uint256 referreeId_) external {
+        _refer(referrerId_, referreeId_);
     }
 }

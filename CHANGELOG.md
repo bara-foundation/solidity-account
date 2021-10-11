@@ -3,6 +3,7 @@
 # Unreleased
 
 - Add `AccountProviderReferrable` extension.
+- Calculate referral level between accounts.
 
 ## 0.1.1-8 (2021-10-08)
 

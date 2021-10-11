@@ -6,7 +6,17 @@ import "@openzeppelin/contracts/utils/Arrays.sol";
 
 import "../AccountProvider.sol";
 
-abstract contract AccountProviderReferrable is AccountProvider {
+interface IAccountProviderReferrable {
+    function isReferrerOf(uint256 referrerId_, uint256 refereeId_) external view returns (bool);
+
+    function referrerOf(uint256 accountId_) external view returns (uint256);
+
+    function referrees(uint256 accountId_) external view returns (uint256[] memory);
+
+    function referLevelBetween(uint256 targetReferrerId_, uint256 refereeId_) external view returns (uint256);
+}
+
+abstract contract AccountProviderReferrable is IAccountProviderReferrable, AccountProvider {
     using Arrays for uint256[];
 
     /**
@@ -25,18 +35,27 @@ abstract contract AccountProviderReferrable is AccountProvider {
     * @param referreeId_ A person who was referred by another person.
     */
     function _refer(uint256 referrerId_, uint256 referreeId_) internal virtual {
-        require(referrerId_ > 0 && referreeId_ > 0, "id must greater than 0");
-        require(_referrers[referreeId_] == 0, "referree already referred");
+        require(referrerId_ > 0 && referreeId_ > 0, "AccountProviderReferrable: id > 0");
+        require(referrerId_ < totalAccounts() && referreeId_ < totalAccounts(), "AccountProviderReferrable: id < totalAccounts");
+        require(_referrers[referreeId_] == 0, "AccountProviderReferrable: link existed");
         _referrers[referreeId_] = referrerId_;
         _referrees[referrerId_].push(referreeId_);
     }
 
-    function referrerOf(uint256 accountId_) public virtual view returns (uint256) {
+    function referrerOf(uint256 accountId_) override public virtual view returns (uint256) {
         return _referrers[accountId_];
     }
 
-    function referrees(uint256 accountId_) public virtual view returns (uint256[] memory) {
+    function referrees(uint256 accountId_) override public virtual view returns (uint256[] memory) {
         return _referrees[accountId_];
+    }
+
+    function referLevelBetween(uint256 targetReferrerId_, uint256 refereeId_) override public virtual view returns (uint256) {
+        return _referLevelBetween(targetReferrerId_, refereeId_);
+    }
+
+    function isReferrerOf(uint256 referrerId_, uint256 refereeId_) override public virtual view returns (bool) {
+        return _isReferrerOf(referrerId_, refereeId_);
     }
 
     function _referLevelBetween(uint256 targetReferrerId_, uint256 refereeId_) internal view returns (uint256) {
@@ -45,11 +64,14 @@ abstract contract AccountProviderReferrable is AccountProvider {
         uint256 nextReferrer = referrerOf(refereeId_);
         while (_isReferrerOf(nextReferrer, nextReferree)) {
             level += 1;
-            nextReferree = nextReferrer;
-            nextReferrer = referrerOf(nextReferrer);
-            if (nextReferrer != targetReferrerId_) {
+            if (nextReferrer == targetReferrerId_) { // Terminate loop when reach the target account
                 break;
             }
+            nextReferree = nextReferrer;
+            nextReferrer = referrerOf(nextReferrer);
+        }
+        if (nextReferrer != targetReferrerId_) { // If reach the final but not connect to the root account, we terminate the referals chain
+            level = 0;
         }
         return level;
     }

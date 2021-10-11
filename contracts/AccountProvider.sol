@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.4;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./Account.sol";
 import "./IAccountProvider.sol";
@@ -19,7 +19,7 @@ contract AccoutProviderStorage {
 * Account contract is use to manage accounts via children contracts,
 * which can create a contract account to handle ERC20/721 token.
 */
-abstract contract AccountProvider is IAccountProvider, ERC721, AccoutProviderStorage {
+abstract contract AccountProvider is IAccountProvider, ERC721URIStorage, AccoutProviderStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _accountIds;
     
@@ -41,6 +41,10 @@ abstract contract AccountProvider is IAccountProvider, ERC721, AccoutProviderSto
     function deleteAccount(bytes32 slug_) external override virtual {
         uint256 accountId = _deleteAccount(slug_);
         _burn(accountId);
+    }
+
+    function setAvatar(uint256 accountId_, string memory tokenURI_) external override virtual {
+        _setTokenURI(accountId_, tokenURI_);
     }
 
     function _newAccountContract(bytes32 slug_) internal virtual returns (address) {
@@ -100,7 +104,7 @@ abstract contract AccountProvider is IAccountProvider, ERC721, AccoutProviderSto
         return _accounts[_accountBySlug[slug_]];
     }
     
-    function totalUsers() override public view returns (uint256) {
+    function totalAccounts() override public view returns (uint256) {
         return _accountIds.current();
     }
 }
