@@ -1,5 +1,9 @@
 # Changelog
 
+# Unreleased
+
+- Add `AccountProviderReferrable` extension.
+
 ## 0.1.1-8 (2021-10-08)
 
 - Fix release scripts.
