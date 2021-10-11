@@ -2,7 +2,7 @@
 pragma solidity 0.8.4;
 
 import "../Account.sol";
-import "../AccountProvider.sol";
+import "../extensions/AccountProviderReferrable.sol";
 
 contract AccountExample is Account {
     uint256 private _id;
@@ -12,7 +12,7 @@ contract AccountExample is Account {
     }
 }
 
-contract AccountProviderExample is AccountProvider {
+contract AccountProviderExample is AccountProviderReferrable {
     constructor() ERC721("Example", "EXP") {
     }
 
