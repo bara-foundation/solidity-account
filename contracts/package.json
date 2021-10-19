@@ -1,5 +1,5 @@
 {
-  "name": "@bara-foundation/solidity-account",
+  "name": "@bara/account-kit",
   "description": "Managed account smart contracts",
   "version": "0.2.1-1",
   "main": "./build/dist/src/index.js",

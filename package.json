@@ -1,5 +1,5 @@
 {
-  "name": "@bara-foundation/solidity-account",
+  "name": "@bara/account-kit",
   "version": "0.2.1-1",
   "files": [
     "/contracts/**/*.sol",
@@ -27,6 +27,7 @@
     "@typechain/ethers-v5": "^7.1.2",
     "@typechain/hardhat": "^2.3.0",
     "@types/chai": "^4.2.22",
+    "@types/crypto-js": "^4.0.2",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.10.2",
     "chai": "^4.3.4",
@@ -42,7 +43,10 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
+    "crypto-js": "^4.1.1",
+    "ethereumjs-wallet": "^1.0.1",
     "kardia-js-sdk": "^0.5.1",
-    "node-appwrite": "^2.5.0"
+    "node-appwrite": "^2.5.0",
+    "react": "^17.0.2"
   }
 }
