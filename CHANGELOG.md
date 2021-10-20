@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.1-4 (2021-10-20)
 
 - Refactor `peerDependencies` into `dependencies`
 
