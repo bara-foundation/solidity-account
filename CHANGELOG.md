@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Refactor `peerDependencies` into `dependencies`
+
 ## 0.2.1-3 (2021-10-20)
 
 - Fix missing dependencies packages.
