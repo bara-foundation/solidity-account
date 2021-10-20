@@ -37,6 +37,8 @@
   "private": false,
   "peerDependencies": {
     "ethers": "^5.4.7",
+    "crypto-js": "^4.1.1",
+    "ethereumjs-wallet": "^1.0.1",
     "@ethersproject/bytes": "^5.4.0",
     "@ethersproject/abi": "^5.4.1",
     "@ethersproject/providers": "^5.4.5",
