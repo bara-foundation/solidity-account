@@ -14,22 +14,40 @@ export class AccessCardClient {
   }
 
   async createWallet(cardIdentity: string, password: string): Promise<any> {
-    const newWallet = this._generateKeyPair();
-    const encryptedPrivateKey = this._encryptPrivateKey(
-      newWallet.privateKey,
-      password
-    );
-    const tx = await this._smc.createCard(
-      cardIdentity,
-      newWallet.publicKey,
-      encryptedPrivateKey,
-      { gasLimit: 3000000 }
-    );
+    const { publicKey, privateKey } = this._generateSecureKeyPair(password);
+    const tx = await this._smc.createCard(cardIdentity, publicKey, privateKey, {
+      gasLimit: 3000000,
+    });
     const result = await tx.wait();
     if (result.events?.length === 0) {
       throw new Error(`Could not create wallet card`);
     }
-    console.log(JSON.stringify({ tx, result }, null, 2));
+    return result;
+  }
+
+  async changeKeyPair(cardIdentity: string, newPassword: string): Promise<any> {
+    const { publicKey, privateKey } = this._generateSecureKeyPair(newPassword);
+    const tx = await this._smc.changeKeyPair(
+      cardIdentity,
+      publicKey,
+      privateKey,
+      {
+        gasLimit: 3000000,
+      }
+    );
+    const result = await tx.wait();
+    if (result.events?.length === 0) {
+      throw new Error(`Could not change wallet key pair`);
+    }
+    return result;
+  }
+
+  async setLockStatus(cardIdentity: string, lock: boolean): Promise<any> {
+    const tx = await this._smc.setLockStatus(cardIdentity, lock);
+    const result = await tx.wait();
+    if (result.events?.length === 0) {
+      throw new Error(`Could not set lock status`);
+    }
     return result;
   }
 
@@ -41,6 +59,15 @@ export class AccessCardClient {
   async restoreWallet(cardIdentity: string, password: string): Promise<string> {
     const pk = await this._smc.privateKeyOf(cardIdentity);
     return this._decryptPrivateKey(pk, password);
+  }
+
+  private _generateSecureKeyPair(newPassword: string) {
+    const newWallet = this._generateKeyPair();
+    const encryptedPrivateKey = this._encryptPrivateKey(
+      newWallet.privateKey,
+      newPassword
+    );
+    return { publicKey: newWallet.publicKey, privateKey: encryptedPrivateKey };
   }
 
   private _generateKeyPair() {

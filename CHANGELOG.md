@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add `AccessCardClient` JS library.
+
 ## 0.2.1-1 (2021-10-19)
 
 - Add `AccountProviderReferrable` extension.
