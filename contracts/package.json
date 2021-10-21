@@ -1,7 +1,7 @@
 {
   "name": "@bara/account-kit",
   "description": "Managed account smart contracts",
-  "version": "0.2.1-4",
+  "version": "0.2.1-5",
   "main": "./build/dist/src/index.js",
   "types": "./build/dist/src/index.d.ts",
   "files": [
