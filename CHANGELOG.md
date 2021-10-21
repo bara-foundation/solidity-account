@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Replace library dependencies `crypto-js` to `crypto-es` for Expo.
+
 ## 0.2.1-4 (2021-10-20)
 
 - Refactor `peerDependencies` into `dependencies`
