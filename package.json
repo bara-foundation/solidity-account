@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
-    "crypto-js": "^4.1.1",
+    "crypto-es": "^1.2.7",
     "ethereumjs-wallet": "^1.0.1",
     "kardia-js-sdk": "^0.5.1",
     "node-appwrite": "^2.5.0",

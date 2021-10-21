@@ -1,6 +1,6 @@
 import { AccessCard, AccessCard__factory } from "../typechain";
 
-import CryptoJS from "crypto-js";
+import CryptoES from "crypto-es";
 import EtherWallet from "ethereumjs-wallet";
 
 export class AccessCardClient {
@@ -82,10 +82,10 @@ export class AccessCardClient {
     encryptedPrivateKey: string,
     password: string
   ): string {
-    return CryptoJS.AES.decrypt(encryptedPrivateKey, password).toString();
+    return CryptoES.AES.decrypt(encryptedPrivateKey, password).toString();
   }
 
   private _encryptPrivateKey(privateKey: string, password: string): string {
-    return CryptoJS.AES.encrypt(privateKey, password).toString();
+    return CryptoES.AES.encrypt(privateKey, password).toString();
   }
 }

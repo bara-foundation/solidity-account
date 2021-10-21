@@ -37,7 +37,7 @@
   "private": false,
   "dependencies": {
     "ethers": "^5.4.7",
-    "crypto-js": "^4.1.1",
+    "crypto-es": "^1.2.7",
     "ethereumjs-wallet": "^1.0.1",
     "@ethersproject/bytes": "^5.4.0",
     "@ethersproject/abi": "^5.4.1",
