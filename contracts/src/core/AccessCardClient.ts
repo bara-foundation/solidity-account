@@ -1,7 +1,14 @@
 import { AccessCard, AccessCard__factory } from "../typechain";
+import { ContractReceipt, Overrides } from "@ethersproject/contracts";
 
 import CryptoES from "crypto-es";
 import EtherWallet from "ethereumjs-wallet";
+
+interface CreateWalletResult {
+  publicKey: string;
+  privateKey: string;
+  result: ContractReceipt;
+}
 
 export class AccessCardClient {
   private _smc: AccessCard;
@@ -13,19 +20,28 @@ export class AccessCardClient {
     );
   }
 
-  async createWallet(cardIdentity: string, password: string): Promise<any> {
+  async createWallet(
+    cardIdentity: string,
+    password: string,
+    overrides?: Overrides
+  ): Promise<CreateWalletResult> {
     const { publicKey, privateKey } = this._generateSecureKeyPair(password);
     const tx = await this._smc.createCard(cardIdentity, publicKey, privateKey, {
       gasLimit: 3000000,
+      ...overrides,
     });
     const result = await tx.wait();
     if (result.events?.length === 0) {
       throw new Error(`Could not create wallet card`);
     }
-    return result;
+    return { publicKey, privateKey, result };
   }
 
-  async changeKeyPair(cardIdentity: string, newPassword: string): Promise<any> {
+  async changeKeyPair(
+    cardIdentity: string,
+    newPassword: string,
+    overrides?: Overrides
+  ): Promise<CreateWalletResult> {
     const { publicKey, privateKey } = this._generateSecureKeyPair(newPassword);
     const tx = await this._smc.changeKeyPair(
       cardIdentity,
@@ -33,17 +49,26 @@ export class AccessCardClient {
       privateKey,
       {
         gasLimit: 3000000,
+        ...overrides,
       }
     );
     const result = await tx.wait();
     if (result.events?.length === 0) {
       throw new Error(`Could not change wallet key pair`);
     }
-    return result;
+    return { publicKey, privateKey, result };
   }
 
-  async setLockStatus(cardIdentity: string, lock: boolean): Promise<any> {
-    const tx = await this._smc.setLockStatus(cardIdentity, lock);
+  async setLockStatus(
+    cardIdentity: string,
+    lock: boolean,
+
+    overrides?: Overrides
+  ): Promise<any> {
+    const tx = await this._smc.setLockStatus(cardIdentity, lock, {
+      gasLimit: 3000000,
+      ...overrides,
+    });
     const result = await tx.wait();
     if (result.events?.length === 0) {
       throw new Error(`Could not set lock status`);

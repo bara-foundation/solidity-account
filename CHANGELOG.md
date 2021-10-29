@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add `overrides`
+- Update return type of functions
+
 ## 0.2.1-5 (2021-10-21)
 
 - Replace library dependencies `crypto-js` to `crypto-es` for Expo.
