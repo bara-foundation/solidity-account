@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.1-6 (2021-10-29)
 
 - Add `overrides`
 - Update return type of functions
